@@ -6,11 +6,12 @@ module The6502
     end
 
     def execute instruction
-
+      value = instruction.split('$')[1]
+      @a = value.to_i(16)
     end
 
     def a
-      1
+      @a
     end
   end
 end
