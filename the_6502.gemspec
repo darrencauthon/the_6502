@@ -6,12 +6,12 @@ require 'the_6502/version'
 Gem::Specification.new do |spec|
   spec.name          = "the_6502"
   spec.version       = The6502::VERSION
-  spec.authors       = ["TODO: Write your name"]
-  spec.email         = ["TODO: Write your email address"]
+  spec.authors       = ["Darren Cauthon"]
+  spec.email         = ["darren@cauthon.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{6502}
+  spec.description   = %q{6502}
+  spec.homepage      = "https://github.com/darrencauthon/the_6502"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
@@ -29,4 +29,5 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.12"
   spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "minitest"
 end
