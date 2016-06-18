@@ -1,11 +1,10 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'the_6502/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "the_6502"
-  spec.version       = The6502::VERSION
+  spec.version       = "0.1.0"
   spec.authors       = ["Darren Cauthon"]
   spec.email         = ["darren@cauthon.com"]
 
