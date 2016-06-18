@@ -12,6 +12,7 @@ module The6502
       if instruction.split(' ')[0] == 'STA'
         location = instruction.split('$')[1].to_i(16)
         self.memory[location] = a
+      elsif instruction.split(' ')[0] == 'TAX'
       else
         value = instruction.split('$')[1]
         self.a = value.to_i(16)
@@ -20,6 +21,10 @@ module The6502
 
     def memory_at location
       memory[location]
+    end
+
+    def x
+      self.a
     end
 
   end
