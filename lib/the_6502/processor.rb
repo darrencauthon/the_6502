@@ -16,10 +16,11 @@ module The6502
       self.a = 0
     end
 
-    def execute instruction
-      command = instruction.split(' ')[0].upcase
+    def execute input
+      command = input.split(' ')[0].upcase
       instruction_type = eval("The6502::Instructions::#{command}")
-      instruction_type.new(self).execute(instruction)
+      instruction = instruction_type.new(self)
+      instruction.execute input
     end
 
     def memory_at location
