@@ -1,19 +1,9 @@
 module The6502
 
-  module Instructions
+  class TAX < The6502::Instruction
 
-    class TAX
-
-      attr_accessor :processor
-
-      def initialize processor
-        self.processor = processor
-      end
-
-      def execute instruction
-        processor.x = processor.a
-      end
-
+    def execute instruction
+      processor.x = processor.a
     end
 
   end

@@ -18,7 +18,7 @@ module The6502
 
     def execute input
       command = input.split(' ')[0].upcase
-      instruction_type = eval("The6502::Instructions::#{command}")
+      instruction_type = eval("The6502::#{command}")
       instruction = instruction_type.new(self)
       instruction.execute input
     end
