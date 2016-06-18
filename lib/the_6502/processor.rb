@@ -1,5 +1,3 @@
-require_relative 'instructions/lda'
-
 module The6502
   class Processor
     def something
