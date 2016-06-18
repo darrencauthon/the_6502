@@ -7,6 +7,8 @@ module The6502
 
     def initialize
       self.memory = {}
+      self.x = 0
+      self.a = 0
     end
 
     def execute instruction
