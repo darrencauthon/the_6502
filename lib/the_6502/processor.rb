@@ -1,3 +1,8 @@
+require_relative 'instructions/inx'
+require_relative 'instructions/lda'
+require_relative 'instructions/sta'
+require_relative 'instructions/tax'
+
 module The6502
   class Processor
 
@@ -12,17 +17,9 @@ module The6502
     end
 
     def execute instruction
-      if instruction.split(' ')[0] == 'STA'
-        location = instruction.split('$')[1].to_i(16)
-        self.memory[location] = a
-      elsif instruction.split(' ')[0] == 'TAX'
-        self.x = self.a
-      elsif instruction.split(' ')[0] == 'INX'
-        self.x += 1
-      else
-        value = instruction.split('$')[1]
-        self.a = value.to_i(16)
-      end
+      command = instruction.split(' ')[0].upcase
+      instruction_type = eval("The6502::Instructions::#{command}")
+      instruction_type.new(self).execute(instruction)
     end
 
     def memory_at location
