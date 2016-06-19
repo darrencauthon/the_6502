@@ -1,6 +1,7 @@
 Dir[File.dirname(__FILE__) + '/instructions/*.rb'].each { |f| require f }
 
 module The6502
+
   class Processor
 
     attr_accessor :a
@@ -86,4 +87,5 @@ module The6502
     end
 
   end
+
 end
