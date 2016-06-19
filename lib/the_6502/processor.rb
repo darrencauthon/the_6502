@@ -12,6 +12,8 @@ module The6502
     attr_accessor :labels
     attr_accessor :pc
 
+    attr_accessor :hard_stop
+
     def initialize
       self.memory = {}
       self.x = 0
@@ -47,6 +49,7 @@ module The6502
       while instruction = instruction_for(self.memory[self.pc]) do
         instruction.execute self.memory[self.pc]
         self.pc += instruction.size_of(self.memory[self.pc])
+        return if hard_stop
       end
     end
 
