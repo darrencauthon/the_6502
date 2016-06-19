@@ -27,6 +27,16 @@ EOF
       )
       processor.carry_flag.must_equal true
     end
+
+    it "should be set to false when the math on a is less than a byte" do
+      processor.execute(
+<<EOF
+LDA \#$ff
+ADC \#$00
+EOF
+      )
+      processor.carry_flag.must_equal false
+    end
   end
 
   describe "running programs" do
