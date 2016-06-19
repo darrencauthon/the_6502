@@ -155,12 +155,12 @@ EOF
 
     it "should remember the label for decrement" do
       processor.execute code
-      processor.labels[:decrement].must_equal 5
+      processor.labels['decrement'].must_equal 5
     end
 
     it "should remember the label for another_label" do
       processor.execute code
-      processor.labels[:another_label].must_equal 10
+      processor.labels['another_label'].must_equal 10
     end
 
   end

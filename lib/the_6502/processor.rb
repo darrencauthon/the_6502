@@ -41,7 +41,7 @@ module The6502
              .map    { |l, i| { index: i, line: l, instruction: instruction_for(l) } }
 
       all.select { |x| x[:instruction].nil? }
-         .map    { |x| { name: x[:line].gsub(':', '').to_sym, address: all.select { |y| y[:instruction] && y[:index] < x[:index] }.map { |z| z[:instruction].size_of(z[:line]) }.reduce(0) { |t, i| t + i } } }
+         .map    { |x| { name: x[:line].gsub(':', ''), address: all.select { |y| y[:instruction] && y[:index] < x[:index] }.map { |z| z[:instruction].size_of(z[:line]) }.reduce(0) { |t, i| t + i } } }
          .each   { |x| self.labels[x[:name]] = x[:address] }
 
       input.split("\n")
