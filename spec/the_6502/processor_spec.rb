@@ -109,4 +109,28 @@ EOF
 
   end
 
+  describe "extra spaces in front of the instruction" do
+
+    let(:code) do
+<<EOF
+  LDA \#$0A
+  STA $0200
+  LDA \#$05
+  STA $0201
+    LDA \#$08
+       STA $0202
+EOF
+    end
+
+    it "should still work" do
+      puts "START"
+      processor.execute code
+      puts "END"
+      processor.memory_at(512).must_equal 10
+      processor.memory_at(513).must_equal 5
+      processor.memory_at(514).must_equal 8
+    end
+
+  end
+
 end
