@@ -11,11 +11,13 @@ module The6502
     attr_accessor :a
     attr_accessor :x
     attr_accessor :memory
+    attr_accessor :carry_flag
 
     def initialize
       self.memory = {}
       self.x = 0
       self.a = 0
+      self.carry_flag = false
     end
 
     def execute input

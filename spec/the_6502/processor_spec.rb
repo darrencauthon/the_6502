@@ -12,6 +12,23 @@ describe "the processor" do
     processor.a.must_equal 0
   end
 
+  describe "carry flag" do
+
+    it "should default to false" do
+      processor.carry_flag.must_equal false
+    end
+
+    it "should be set to true when the math on a is greater than a byte" do
+      processor.execute(
+<<EOF
+LDA \#$ff
+ADC \#$01
+EOF
+      )
+      processor.carry_flag.must_equal true
+    end
+  end
+
   describe "running programs" do
 
     describe "first simple program" do

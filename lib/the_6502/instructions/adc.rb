@@ -5,6 +5,10 @@ module The6502
     def execute instruction
       value = instruction.split('$')[1]
       processor.a += value.to_i(16)
+
+      processor.carry_flag = true if processor.a > 255
+
+      processor.a = processor.a % 256
     end
 
   end
