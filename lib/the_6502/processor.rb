@@ -34,9 +34,10 @@ module The6502
     end
 
     def execute input
-      input.split("\n").each do |line|
-        instruction_for(line).execute line
-      end
+      input.split("\n")
+           .map    { |l| { line: l, instruction: instruction_for(l) } }
+           .select { |x| x[:instruction] }
+           .each   { |x| x[:instruction].execute x[:line] }
     end
 
     def memory_at location
@@ -47,7 +48,12 @@ module The6502
 
     def instruction_for instruction
       command = instruction.split(' ')[0].upcase
-      eval("The6502::#{command}").new self
+      command = "The6502::#{command}"
+      return nil unless Object.const_defined?(command)
+      @class = eval(command)
+      @class.new self
+    rescue
+      nil
     end
 
   end

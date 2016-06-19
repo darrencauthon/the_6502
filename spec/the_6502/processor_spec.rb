@@ -123,9 +123,31 @@ EOF
     end
 
     it "should still work" do
-      puts "START"
       processor.execute code
-      puts "END"
+      processor.memory_at(512).must_equal 10
+      processor.memory_at(513).must_equal 5
+      processor.memory_at(514).must_equal 8
+    end
+
+  end
+
+  describe "labels in the code" do
+
+    let(:code) do
+<<EOF
+  LDA \#$0A
+  STA $0200
+decrement:
+  LDA \#$05
+  STA $0201
+another_label:
+  LDA \#$08
+  STA $0202
+EOF
+    end
+
+    it "should still work" do
+      processor.execute code
       processor.memory_at(512).must_equal 10
       processor.memory_at(513).must_equal 5
       processor.memory_at(514).must_equal 8
