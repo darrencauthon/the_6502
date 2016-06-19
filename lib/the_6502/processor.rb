@@ -42,9 +42,19 @@ module The6502
     private
 
     def execute_instructions code
+      counter = 0
       build_lines_from(code)
           .select { |x| x[:instruction] }
-          .each   { |x| x[:instruction].process x[:line] }
+          .each do |x|
+            self.memory[counter] = x[:line]
+            counter += x[:instruction].size_of(x[:line])
+          end
+
+      self.pc = 0
+      while instruction = instruction_for(self.memory[self.pc]) do
+        instruction.execute self.memory[self.pc]
+        self.pc += instruction.size_of(self.memory[self.pc])
+      end
     end
 
     def build_labels_for code
