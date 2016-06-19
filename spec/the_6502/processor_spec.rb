@@ -37,6 +37,14 @@ EOF
       )
       processor.carry_flag.must_equal false
     end
+
+    it "should be aliased to v" do
+      processor.carry_flag = true
+      processor.v.must_equal true
+      processor.carry_flag = false
+      processor.v.must_equal false
+    end
+
   end
 
   describe "running programs" do

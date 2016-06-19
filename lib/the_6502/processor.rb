@@ -12,13 +12,21 @@ module The6502
     attr_accessor :a
     attr_accessor :x
     attr_accessor :memory
-    attr_accessor :carry_flag
+    attr_accessor :v
 
     def initialize
       self.memory = {}
       self.x = 0
       self.a = 0
       self.carry_flag = false
+    end
+
+    def carry_flag
+      self.v
+    end
+
+    def carry_flag= value
+      self.v = value
     end
 
     def execute input
