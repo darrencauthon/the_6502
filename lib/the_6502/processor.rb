@@ -36,18 +36,18 @@ module The6502
     end
 
     def execute input
-      all = input.split("\n")
-             .each_with_index
-             .map    { |l, i| { index: i, line: l, instruction: instruction_for(l) } }
+      build_lines_from(input)
+        .select { |x| x[:instruction].nil? }
+        .map    { |x| { name:    x[:line].gsub(':', ''), 
+                        address: build_lines_from(input)
+                                      .select { |y| y[:instruction] && y[:index] < x[:index] }
+                                      .map { |z| z[:instruction].size_of(z[:line]) }
+                                      .reduce(0) { |t, i| t + i } } }
+        .each   { |x| self.labels[x[:name]] = x[:address] }
 
-      all.select { |x| x[:instruction].nil? }
-         .map    { |x| { name: x[:line].gsub(':', ''), address: all.select { |y| y[:instruction] && y[:index] < x[:index] }.map { |z| z[:instruction].size_of(z[:line]) }.reduce(0) { |t, i| t + i } } }
-         .each   { |x| self.labels[x[:name]] = x[:address] }
-
-      input.split("\n")
-           .map    { |l| { line: l, instruction: instruction_for(l) } }
-           .select { |x| x[:instruction] }
-           .each   { |x| x[:instruction].execute x[:line] }
+      build_lines_from(input)
+          .select { |x| x[:instruction] }
+          .each   { |x| x[:instruction].execute x[:line] }
     end
 
     def memory_at location
@@ -55,6 +55,12 @@ module The6502
     end
 
     private
+
+    def build_lines_from input
+      input.split("\n")
+           .each_with_index
+           .map    { |l, i| { index: i, line: l, instruction: instruction_for(l) } }
+    end
 
     def instruction_for instruction
       command = instruction.split(' ')[0].upcase
