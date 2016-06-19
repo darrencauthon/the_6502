@@ -1,3 +1,5 @@
+require_relative 'instructions/adc'
+require_relative 'instructions/brk'
 require_relative 'instructions/inx'
 require_relative 'instructions/lda'
 require_relative 'instructions/sta'
