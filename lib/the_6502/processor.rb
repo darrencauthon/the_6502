@@ -31,8 +31,8 @@ module The6502
 
     def execute code
       build_labels_for code
-
-      execute_instructions code
+      load_the_instructions_into_memory code
+      execute_the_program
     end
 
     def memory_at location
@@ -41,7 +41,15 @@ module The6502
 
     private
 
-    def execute_instructions code
+    def execute_the_program
+      self.pc = 0
+      while instruction = instruction_for(self.memory[self.pc]) do
+        instruction.execute self.memory[self.pc]
+        self.pc += instruction.size_of(self.memory[self.pc])
+      end
+    end
+
+    def load_the_instructions_into_memory code
       counter = 0
       build_lines_from(code)
           .select { |x| x[:instruction] }
@@ -49,12 +57,6 @@ module The6502
             self.memory[counter] = x[:line]
             counter += x[:instruction].size_of(x[:line])
           end
-
-      self.pc = 0
-      while instruction = instruction_for(self.memory[self.pc]) do
-        instruction.execute self.memory[self.pc]
-        self.pc += instruction.size_of(self.memory[self.pc])
-      end
     end
 
     def build_labels_for code
