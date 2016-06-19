@@ -9,6 +9,7 @@ module The6502
     attr_accessor :memory
     attr_accessor :v
     attr_accessor :labels
+    attr_accessor :pc
 
     def initialize
       self.memory = {}
@@ -17,6 +18,7 @@ module The6502
       self.a = 0
       self.carry_flag = false
       self.labels = {}
+      self.pc = 0
     end
 
     def carry_flag
@@ -42,7 +44,7 @@ module The6502
     def execute_instructions code
       build_lines_from(code)
           .select { |x| x[:instruction] }
-          .each   { |x| x[:instruction].execute x[:line] }
+          .each   { |x| x[:instruction].process x[:line] }
     end
 
     def build_labels_for code

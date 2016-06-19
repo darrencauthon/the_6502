@@ -10,6 +10,11 @@ module The6502
       2
     end
 
+    def process instruction
+      execute instruction
+      processor.pc += size_of(instruction)
+    end
+
     def operands_from instruction
       items = instruction.split(' ')
       items.shift

@@ -165,4 +165,28 @@ EOF
 
   end
 
+  describe "program counter" do
+
+    it "should be set to the last address executed, first example" do
+      code = <<EOF
+  LDA \#$0A
+  STA $0200
+EOF
+      processor.execute code
+      processor.pc.must_equal 5
+    end
+
+    it "should be set to the last address executed, second example" do
+      code = <<EOF
+  LDA \#$0A
+  STA $0200
+  LDA \#$0A
+  STA $0200
+EOF
+      processor.execute code
+      processor.pc.must_equal 10 
+    end
+
+  end
+
 end
