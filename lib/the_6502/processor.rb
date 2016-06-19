@@ -4,6 +4,7 @@ require_relative 'instructions/clv'
 require_relative 'instructions/inx'
 require_relative 'instructions/lda'
 require_relative 'instructions/ldx'
+require_relative 'instructions/ldy'
 require_relative 'instructions/sta'
 require_relative 'instructions/tax'
 
@@ -12,6 +13,7 @@ module The6502
 
     attr_accessor :a
     attr_accessor :x
+    attr_accessor :y
     attr_accessor :memory
     attr_accessor :v
 
