@@ -1,12 +1,4 @@
-require_relative 'instructions/adc'
-require_relative 'instructions/brk'
-require_relative 'instructions/clv'
-require_relative 'instructions/inx'
-require_relative 'instructions/lda'
-require_relative 'instructions/ldx'
-require_relative 'instructions/ldy'
-require_relative 'instructions/sta'
-require_relative 'instructions/tax'
+Dir[File.dirname(__FILE__) + '/instructions/*.rb'].each { |f| require f }
 
 module The6502
   class Processor
