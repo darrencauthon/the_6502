@@ -64,11 +64,9 @@ module The6502
     end
 
     def instruction_for instruction
-      command = instruction.split(' ')[0].upcase
-      command = "The6502::#{command}"
+      command = "The6502::#{instruction.split(' ')[0].upcase}"
       return nil unless Object.const_defined?(command)
-      @class = eval(command)
-      @class.new self
+      eval(command).new self
     rescue
       nil
     end
