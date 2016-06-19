@@ -5,5 +5,9 @@ module The6502
     def initialize processor
       self.processor = processor
     end
+
+    def size_of instruction
+      2
+    end
   end
 end

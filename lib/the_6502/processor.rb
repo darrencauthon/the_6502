@@ -16,6 +16,7 @@ module The6502
     attr_accessor :y
     attr_accessor :memory
     attr_accessor :v
+    attr_accessor :labels
 
     def initialize
       self.memory = {}
@@ -23,6 +24,7 @@ module The6502
       self.y = 0
       self.a = 0
       self.carry_flag = false
+      self.labels = {}
     end
 
     def carry_flag
@@ -34,6 +36,14 @@ module The6502
     end
 
     def execute input
+      all = input.split("\n")
+             .each_with_index
+             .map    { |l, i| { index: i, line: l, instruction: instruction_for(l) } }
+
+      all.select { |x| x[:instruction].nil? }
+         .map    { |x| { name: x[:line].gsub(':', '').to_sym, address: all.select { |y| y[:instruction] && y[:index] < x[:index] }.map { |z| z[:instruction].size_of(z[:line]) }.reduce(0) { |t, i| t + i } } }
+         .each   { |x| self.labels[x[:name]] = x[:address] }
+
       input.split("\n")
            .map    { |l| { line: l, instruction: instruction_for(l) } }
            .select { |x| x[:instruction] }

@@ -7,6 +7,10 @@ module The6502
       processor.memory[location] = processor.a
     end
 
+    def size_of instruction
+      3
+    end
+
   end
 
 end
