@@ -36,14 +36,7 @@ module The6502
     end
 
     def execute input
-      build_lines_from(input)
-        .select { |x| x[:instruction].nil? }
-        .map    { |x| { name:    x[:line].gsub(':', ''), 
-                        address: build_lines_from(input)
-                                      .select { |y| y[:instruction] && y[:index] < x[:index] }
-                                      .map { |z| z[:instruction].size_of(z[:line]) }
-                                      .reduce(0) { |t, i| t + i } } }
-        .each   { |x| self.labels[x[:name]] = x[:address] }
+      build_labels_for input
 
       build_lines_from(input)
           .select { |x| x[:instruction] }
@@ -55,6 +48,18 @@ module The6502
     end
 
     private
+
+    def build_labels_for input
+      lines = build_lines_from(input)
+
+      lines.select { |x| x[:instruction].nil? }
+           .map    { |x| { name:    x[:line].gsub(':', ''), 
+                           address: lines
+                                      .select { |y| y[:instruction] && y[:index] < x[:index] }
+                                      .map { |z| z[:instruction].size_of(z[:line]) }
+                                      .reduce(0) { |t, i| t + i } } }
+           .each   { |x| self.labels[x[:name]] = x[:address] }
+    end
 
     def build_lines_from input
       input.split("\n")
