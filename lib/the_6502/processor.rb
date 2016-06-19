@@ -17,7 +17,9 @@ module The6502
     end
 
     def execute input
-      instruction_for(input).execute input
+      input.split("\n").each do |line|
+        instruction_for(line).execute line
+      end
     end
 
     def memory_at location

@@ -12,4 +12,38 @@ describe "the processor" do
     processor.a.must_equal 0
   end
 
+  describe "running programs" do
+
+    describe "one simple program" do
+
+      let(:code) do
+<<EOF
+LDA \#$0A
+STA $0200
+LDA \#$05
+STA $0201
+LDA \#$08
+STA $0202
+EOF
+      end
+
+      it "should set 512 to 10" do
+        processor.execute code
+        processor.memory_at(512).must_equal 10
+      end
+
+      it "should set 513 to 5" do
+        processor.execute code
+        processor.memory_at(513).must_equal 5
+      end
+
+      it "should set 514 to 8" do
+        processor.execute code
+        processor.memory_at(514).must_equal 8
+      end
+
+    end
+
+  end
+
 end
