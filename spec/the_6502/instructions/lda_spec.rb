@@ -14,4 +14,10 @@ describe "LDA" do
     processor.a.must_equal 10
   end
 
+  it "should load from memory" do
+    processor.memory[10] = 11
+    processor.execute 'LDA $0A'
+    processor.a.must_equal 11
+  end
+
 end
