@@ -11,6 +11,7 @@ module The6502
     attr_accessor :v
     attr_accessor :labels
     attr_accessor :pc
+    attr_accessor :z
 
     attr_accessor :hard_stop
 
@@ -22,6 +23,7 @@ module The6502
       self.carry_flag = false
       self.labels = {}
       self.pc = 0
+      self.z = false
     end
 
     def carry_flag

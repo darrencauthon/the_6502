@@ -16,6 +16,10 @@ describe "the processor" do
     processor.a.must_equal 0
   end
 
+  it "should default z to false" do
+    processor.z.must_equal false
+  end
+
   describe "carry flag" do
 
     it "should default to false" do
