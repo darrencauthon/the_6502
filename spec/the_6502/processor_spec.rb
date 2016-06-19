@@ -8,6 +8,10 @@ describe "the processor" do
     processor.x.must_equal 0
   end
 
+  it "should default y to 0" do
+    processor.y.must_equal 0
+  end
+
   it "should default a to 0" do
     processor.a.must_equal 0
   end

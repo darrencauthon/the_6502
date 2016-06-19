@@ -20,6 +20,7 @@ module The6502
     def initialize
       self.memory = {}
       self.x = 0
+      self.y = 0
       self.a = 0
       self.carry_flag = false
     end
