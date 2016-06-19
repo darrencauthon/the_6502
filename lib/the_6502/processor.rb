@@ -35,12 +35,10 @@ module The6502
       self.v = value
     end
 
-    def execute input
-      build_labels_for input
+    def execute code
+      build_labels_for code
 
-      build_lines_from(input)
-          .select { |x| x[:instruction] }
-          .each   { |x| x[:instruction].execute x[:line] }
+      execute_instructions code
     end
 
     def memory_at location
@@ -49,8 +47,14 @@ module The6502
 
     private
 
-    def build_labels_for input
-      lines = build_lines_from(input)
+    def execute_instructions code
+      build_lines_from(code)
+          .select { |x| x[:instruction] }
+          .each   { |x| x[:instruction].execute x[:line] }
+    end
+
+    def build_labels_for code
+      lines = build_lines_from(code)
 
       lines.select { |x| x[:instruction].nil? }
            .map    { |x| { name:    x[:line].gsub(':', ''), 
@@ -61,10 +65,10 @@ module The6502
            .each   { |x| self.labels[x[:name]] = x[:address] }
     end
 
-    def build_lines_from input
-      input.split("\n")
-           .each_with_index
-           .map    { |l, i| { index: i, line: l, instruction: instruction_for(l) } }
+    def build_lines_from code
+      code.split("\n")
+          .each_with_index
+          .map    { |l, i| { index: i, line: l, instruction: instruction_for(l) } }
     end
 
     def instruction_for instruction
