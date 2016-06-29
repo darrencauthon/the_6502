@@ -10,6 +10,10 @@ module The6502
       2
     end
 
+    def to_bytes
+      [0xa9, 0x01]
+    end
+
     def process instruction
       execute instruction
       processor.pc += size_of(instruction)

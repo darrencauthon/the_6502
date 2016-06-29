@@ -8,6 +8,7 @@ module The6502
     attr_accessor :x
     attr_accessor :y
     attr_accessor :memory
+    attr_accessor :new_memory
     attr_accessor :v
     attr_accessor :labels
     attr_accessor :pc
@@ -17,6 +18,7 @@ module The6502
 
     def initialize
       self.memory = {}
+      self.new_memory = {}
       self.x = 0
       self.y = 0
       self.a = 0
@@ -61,7 +63,13 @@ module The6502
           .select { |x| x[:instruction] }
           .each do |x|
             self.memory[counter] = x[:line]
+
+            x[:instruction].to_bytes.each_with_index do |b, i|
+              self.new_memory[counter + i] = b
+            end
+
             counter += x[:instruction].size_of(x[:line])
+            
           end
     end
 
