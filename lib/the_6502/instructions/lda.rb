@@ -8,11 +8,6 @@ module The6502
 
     def to_bytes instruction
       value = operands_from(instruction)[0]
-      puts '---'
-      puts value.inspect
-      puts value % 4
-      puts value / 4
-      puts '---'
       [0xa9, value]
     end
 
