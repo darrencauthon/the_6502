@@ -10,7 +10,7 @@ module The6502
       2
     end
 
-    def to_bytes
+    def to_bytes instruction
       [0xa9, 0x01]
     end
 

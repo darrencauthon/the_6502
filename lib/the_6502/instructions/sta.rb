@@ -11,6 +11,11 @@ module The6502
       3
     end
 
+    def to_bytes instruction
+      operands = operands_from instruction
+      [0x8d, operands[0], operands[1]]
+    end
+
   end
 
 end

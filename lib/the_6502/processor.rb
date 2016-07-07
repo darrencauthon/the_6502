@@ -64,7 +64,7 @@ module The6502
           .each do |x|
             self.memory[counter] = x[:line]
 
-            x[:instruction].to_bytes.each_with_index do |b, i|
+            x[:instruction].to_bytes(x[:line]).each_with_index do |b, i|
               self.new_memory[counter + i] = b
             end
 
